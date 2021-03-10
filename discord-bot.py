@@ -6,8 +6,8 @@ intents = discord.Intents.default()
 intents.members = True
 
 bot = commands.Bot(command_prefix='.', intents=intents)
-TOKEN = 'Your Discord Bot Token'
-server = 'server name'
+TOKEN = 'Your Token here'
+server = 'Server name'
 
 # Function to convert
 def list_to_string(s):
@@ -84,17 +84,5 @@ async def _clear(ctx, number = 5):
     await ctx.message.delete()
 
     await ctx.channel.purge(limit=number)
-
-@bot.command(name="toall", pass_context=True)
-@has_permissions(manage_roles=True, ban_members=True)
-async def _toall(ctx, role: discord.Role, *text):
-    async for member in ctx.message.guild.fetch_members(limit=300):
-        if member.bot is False:
-            if role in member.roles:
-                message = list_to_string(text)
-
-                embed_var = discord.Embed(description=f"{message}", color=0xff0000)
-
-                await member.send(embed=embed_var)
 
 bot.run(TOKEN)

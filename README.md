@@ -23,10 +23,6 @@ Bot will kick player in first argument with reason in second argument (you have 
 ```
 Bot will ban player in first argument with reason in second argument (you have to mention player by @)
 
-```
-.toall <@rank> <text>
-```
-Bot will send message (second argument) to all players who contains rank on first argument
 
 ```
 .clear <number>
