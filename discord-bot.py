@@ -1,13 +1,20 @@
 import discord
 from discord.ext import commands
 from discord.ext.commands import has_permissions
+import configparser
 
 intents = discord.Intents.default()
 intents.members = True
 
-bot = commands.Bot(command_prefix='.', intents=intents)
-TOKEN = 'Your Token here'
-server = 'Server name'
+# import config variables
+
+config = configparser.ConfigParser()
+config.read('config.ini')
+
+prefix = config['DISCORD']['prefix']
+bot = commands.Bot(command_prefix=prefix, intents=intents)
+TOKEN = config['DISCORD']['token']
+server = config['DISCORD']['server_name']
 
 # Function to convert
 def list_to_string(s):
