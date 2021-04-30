@@ -2,9 +2,7 @@ import discord
 from discord.ext import commands
 from discord.ext.commands import has_permissions
 import configparser
-
-intents = discord.Intents.default()
-intents.members = True
+import psycopg2
 
 # import config variables
 
@@ -12,11 +10,48 @@ config = configparser.ConfigParser()
 config.read('config.ini')
 
 prefix = config['DISCORD']['prefix']
-bot = commands.Bot(command_prefix=prefix, intents=intents)
+bot = commands.Bot(command_prefix=prefix)
 TOKEN = config['DISCORD']['token']
 server = config['DISCORD']['server_name']
 
-# Function to convert
+#PostgreSQL config
+phost = config['postgresql']['host']
+pdatabase = config['postgresql']['database']
+puser = config['postgresql']['user']
+ppassword = config['postgresql']['password']
+
+#Connect to PostgreSQL
+try:
+    conn = psycopg2.connect(
+        host=phost,
+        database=pdatabase,
+        user=puser,
+        password=ppassword)
+except:
+    print('Error while connecting to PostgreSQL')
+finally:
+    if conn is not None:
+        print('Connected to PostgreSQL')
+        tname = config['postgresql']['table']
+        tschema = config['postgresql']['schema']
+        cur = conn.cursor()
+        cur.execute("SELECT * FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_SCHEMA = '" + tschema + "' AND TABLE_NAME = '" + tname + "';")
+        x = cur.fetchone()
+        if x is None:
+            cur.execute("CREATE TABLE " + tname + " ( UserID varchar, Messages int, Points int, Reputation int );")
+        else:
+            print('table exists!')
+
+
+        conn.commit()
+        cur.close()
+        conn.close()
+
+@bot.event
+async def on_ready():
+    print('We have logged in as {0.user}'.format(bot))
+
+# Function to convert list to string
 def list_to_string(s):
     str1 = ""
 
@@ -24,11 +59,6 @@ def list_to_string(s):
         str1 += " " + ele
 
     return str1
-
-
-@bot.event
-async def on_ready():
-    print('We have logged in as {0.user}'.format(bot))
 
 
 @bot.command(name="kick", pass_context=True)
