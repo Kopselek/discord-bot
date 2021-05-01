@@ -28,6 +28,7 @@ Add your bot to the server and run:
 top aktywnosc
 ```
 Bot will make top 10 most active users
+- Requires PostgreSQL connection
 
 ### Admin Commands
 
