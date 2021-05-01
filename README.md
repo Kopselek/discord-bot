@@ -4,15 +4,15 @@ Discord Bot is simple bot for your Discord server.
 
 ## Libraries
 
-Program uses library
-[discord.py](https://pypi.org/project/discord.py/)
-[psycopg2](https://pypi.org/project/psycopg2/)
+Program uses libraries
+- [discord.py](https://pypi.org/project/discord.py/)
+- [psycopg2](https://pypi.org/project/psycopg2/)
 
-##PostgreSQL
+## PostgreSQL
 Connect your PostgreSQL Database to bot which allows you to storing user's data
 without database, bot still will runing but you will lost some functions
 
-##Installation
+## Installation
 - Install Python 3.9 + libraries that program is using (if you want all features then install PostgreSQL)
 - on [discord developer side](https://discord.com/developers/applications)  create new application
 - then in application go to Bot and create new bot + copy Token
