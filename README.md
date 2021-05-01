@@ -23,13 +23,13 @@ Add your bot to the server and run:
 
 ## Commands
 
-# User Commands
+### User Commands
 ```
 top aktywnosc
 ```
 Bot will make top 10 most active users
 
-# Admin Commands
+### Admin Commands
 
 ```
 say <text>
