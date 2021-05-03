@@ -43,6 +43,7 @@ finally:
             print('table exists!')
         conn.commit()
         cur.close()
+        conn.close()
 
 @bot.event
 async def on_ready():
@@ -63,6 +64,15 @@ async def on_message(message):
     if message.author.bot is False:
         author = str(message.author.id)
         author_nick = str(message.author)
+        try:
+            conn = psycopg2.connect(
+                host=phost,
+                database=pdatabase,
+                user=puser,
+                password=ppassword)
+        except:
+            print('cant connect to database')
+
         if conn is not None:
             cur = conn.cursor()
             cur.execute("SELECT * FROM " + tname + " WHERE UserID = '" + author + "';")
@@ -74,11 +84,21 @@ async def on_message(message):
 
             conn.commit()
             cur.close()
+            conn.close()
 
     await bot.process_commands(message)
 
 @bot.command(name="top", pass_context=True)
 async def _top(ctx, type):
+    try:
+        conn = psycopg2.connect(
+            host=phost,
+            database=pdatabase,
+            user=puser,
+            password=ppassword)
+    except:
+        print('cant connect to database')
+        
     if conn is not None:
         if type == 'aktywnosc':
             embed_var = discord.Embed(title="Top Aktywnych", description="", color=0xffff00)
