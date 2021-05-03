@@ -23,24 +23,33 @@ Add your bot to the server and run:
 
 ## Commands
 
+### User Commands
 ```
-.say <text>
+top aktywnosc
+```
+Bot will make top 10 most active users
+- Requires PostgreSQL connection
+
+### Admin Commands
+
+```
+say <text>
 ```
 Bot will say text instead of you
 
 ```
-.kick <@mention> <text>
+kick <@mention> <text>
 ```
 Bot will kick player in first argument with reason in second argument (you have to mention player by @)
 
 ```
-.ban <@mention> <text>
+ban <@mention> <text>
 ```
 Bot will ban player in first argument with reason in second argument (you have to mention player by @)
 
 
 ```
-.clear <number>
+clear <number>
 ```
 Bot will purge x messages on channel
 
